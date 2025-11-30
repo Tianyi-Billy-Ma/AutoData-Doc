@@ -21,9 +21,21 @@ AutoData automates the generation of crawlers and the extraction of data from di
 
 ```{toctree}
 :maxdepth: 2
-:caption: Contents:
+:caption: GETTING STARTED
 
 getting_started
-setup_configuration
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: CONFIGURATION
+
+configuration
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: REFERENCES
+
 references
 ```

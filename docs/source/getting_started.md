@@ -1,11 +1,9 @@
-# Getting Started
-
-## Prerequisites
+# Prerequisites
 
 -   **Python 3.11+**
 -   **uv** (for dependency management)
 
-## Installation
+# Installation
 
 1.  **Clone the repository:**
     ```bash
@@ -24,7 +22,7 @@
     playwright install-deps
     ```
 
-## Usage
+# Usage
 
 To run a sample task using the default configuration:
 

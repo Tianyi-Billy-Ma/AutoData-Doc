@@ -1,6 +1,4 @@
-# References
-
-## Citation
+# Citation
 
 If you use AutoData in your research, please cite our paper:
 
@@ -14,6 +12,6 @@ If you use AutoData in your research, please cite our paper:
 }
 ```
 
-## Special Thanks
+# Special Thanks
 
 [Browser-use](https://github.com/browser-use/browser-use)
