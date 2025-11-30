@@ -2,7 +2,7 @@
 
 ## Citation
 
-If you use AutoData in your research, please cite our NeurIPS 2025 paper:
+If you use AutoData in your research, please cite our paper:
 
 ```bibtex
 @inproceedings{autodata2025,
@@ -13,3 +13,7 @@ If you use AutoData in your research, please cite our NeurIPS 2025 paper:
   url={https://arxiv.org/abs/2505.15859}
 }
 ```
+
+## Special Thanks
+
+[Browser-use](https://github.com/browser-use/browser-use)

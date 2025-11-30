@@ -1,7 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
 
-import os
-import sys
 from datetime import date
 
 # -- Project information -----------------------------------------------------
@@ -27,6 +25,11 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
+html_theme_options = {
+    "collapse_navigation": False,
+    "sticky_navigation": True,
+    "navigation_depth": 4,
+}
 html_static_path = ["_static"]
 
 # -- Options for MyST Parser -------------------------------------------------
