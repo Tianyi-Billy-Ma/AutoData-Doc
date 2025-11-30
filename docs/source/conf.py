@@ -6,28 +6,28 @@ from datetime import date
 
 # -- Project information -----------------------------------------------------
 
-project = 'AutoData'
-copyright = f'{date.today().year}, AutoData Team'
-author = 'AutoData Team'
-release = '0.2.0'
+project = "AutoData"
+copyright = f"{date.today().year}, AutoData Team"
+author = "AutoData Team"
+release = "0.2.0"
 
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon',
-    'myst_parser',
-    'sphinx_copybutton',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "myst_parser",
+    "sphinx_copybutton",
 ]
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_theme = "furo"
+html_static_path = ["_static"]
 
 # -- Options for MyST Parser -------------------------------------------------
 myst_enable_extensions = [
@@ -35,3 +35,8 @@ myst_enable_extensions = [
     "deflist",
 ]
 myst_heading_anchors = 3
+
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
