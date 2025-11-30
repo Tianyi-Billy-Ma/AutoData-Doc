@@ -2,10 +2,11 @@
 
 **AutoData** is a pioneering multi-agent system designed to revolutionize data collection from the open web.
 
-> [!NOTE]
-> This documentation is for the **AutoData** project.
->
-> The public repository is available at [AutoData](https://github.com/Tianyi-Billy-Ma/AutoData).
+```{note}
+This documentation is for the **AutoData** project.
+
+The public repository is available at [AutoData](https://github.com/Tianyi-Billy-Ma/AutoData).
+```
 
 ## Introduction
 
