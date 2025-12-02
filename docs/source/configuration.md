@@ -35,6 +35,17 @@ export OPENROUTER_BASE_URL="https://openrouter.ai/api/v1"
 
 When these variables are present, AutoData auto-populates `llm_config.api_key`/`base_url`. This applies to other OpenAI-compatible services as well.
 
+# Using `.env` Files for Secrets
+
+AutoData loads environment variables from `.env`, `.env.local`, or `~/.autodata/.env` **before** parsing your configuration. Copy the example template, fill it once, and skip repeated `export` commands:
+
+```bash
+cp .env.example .env
+echo "OPENAI_API_KEY=sk-demo" >> .env
+```
+
+You can still override individual values at runtime with `export` or CLI flags, but keeping your API keys in the `.env` file ensures `uv run python -m autodata.main ...` always finds them, including inside automation scripts and CI runners.
+
 # File Formats & Loading
 
 ```bash
@@ -45,13 +56,23 @@ uv run python -m autodata.main --config configs/finance.yaml
 uv run python -m autodata.main --config configs/generated --config-format yaml
 ```
 
+YAML is the default, but JSON and TOML work the same way—just pass the extension or use `--config-format` whenever the filename is ambiguous:
+
+```bash
+# JSON
+uv run python -m autodata.main --config configs/portfolio.json
+
+# TOML (extension omitted, format forced via flag)
+uv run python -m autodata.main --config configs/research --config-format toml
+```
+
 Internally `AutoDataConfig.from_file()` parses the file, validates every field via Pydantic, and expands relative paths to absolute ones. CLI arguments then override the loaded structure via `apply_cli_overrides`. The priority order is: **CLI > config file > defaults**.
 
 # Core Fields
 
 | Field | Description |
 | --- | --- |
-| `run_name` | Logical name for the run. Used for folder names and checkpoint manifests. Required when reusing directories with `--overwrite`. |
+| `run_name` | Defaults to `default_run`. Provide a custom value when you want a unique folder name (it is only required when reusing directories with `--overwrite`). |
 | `task` | Free-form instruction that the Supervisor reads when executing the graph. CLI flag `--task` temporarily overrides it. |
 | `task_timeout` | Max run duration in seconds (default `3600`). |
 | `disable_human` | When `true`, AutoData auto-confirms HumanAgent prompts and remains non-interactive. |
@@ -64,14 +85,15 @@ Internally `AutoDataConfig.from_file()` parses the file, validates every field v
 storage_config:
   type: "file"
   output_dir: "./outputs"
-  run_name: null
-  overwrite: false
-  force_overwrite: false
+  file_format: "json"
   compression: null
+  database_url: null
+  overwrite: true
+  force_overwrite: true
 ```
 
 - `output_dir` defines where AutoData writes runs. Paths are resolved relative to the repo unless you specify an absolute path.
-- Enable `overwrite` if you want to reuse the same `run_name`. Adding `force_overwrite` skips the safety prompt entirely.
+- `overwrite` and `force_overwrite` default to `true`, so repeated runs with the same `run_name` overwrite earlier artifacts with no prompt. Set them to `false` if you prefer manual protection.
 - `run_dir`, `cache_dir`, `work_dir`, and `video_dir` are derived from `run_name`; you rarely need to set them manually.
 
 Logging is configured through `log_config`:
@@ -134,7 +156,7 @@ ohcache_config:
 
 ```yaml
 checkpoint_config:
-  enabled: true
+  checkpoint_enabled: true
   auto_checkpoint: true      # save snapshots automatically after agents run
   checkpoint_dir: null       # defaults to outputs/<run_name>/checkpoint
   export_json: false         # when true, writes human-readable JSON next to binaries
@@ -162,8 +184,8 @@ browser_use_browser_config:
   record_video_dir: null # leave null to write under outputs/<run>/browser
 
 browser_use_agent_config:
-  max_steps: 100
-  max_actions_per_step: 10
+  max_steps: 20
+  max_actions_per_step: 50
   llm_timeout: 120
   generate_gif: false
   file_system_path: null
@@ -171,7 +193,9 @@ browser_use_agent_config:
 
 `setup_output_directory()` ensures `browser_use_agent_config.file_system_path` points to `outputs/<run_name>/browser` so browser-use can persist histories between agent calls.
 
-# CLI Override Reference
+# CLI Reference
+
+See {ref}`references-supported-arguments` for every configuration field, its default, and the generated CLI flag. The table below highlights the switches teams override most often during day-to-day runs.
 
 | Flag | Effect |
 | --- | --- |

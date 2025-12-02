@@ -7,7 +7,7 @@ from datetime import date
 project = "AutoData"
 copyright = f"{date.today().year}, AutoData Team"
 author = "AutoData Team"
-release = "0.2.0"
+release = "0.1.0"
 
 # -- General configuration ---------------------------------------------------
 
