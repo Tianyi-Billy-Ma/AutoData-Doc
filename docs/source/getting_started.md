@@ -1,6 +1,6 @@
 Follow this guide when you first pull the repository or whenever you spin up a fresh environment.
 
-# 1. Prerequisites
+# Prerequisites
 
 - macOS / Linux shell with **Python 3.11+** (AutoData ships type hints that assume 3.11).
 - [uv](https://github.com/astral-sh/uv) for dependency and virtualenv management.
@@ -11,7 +11,7 @@ Follow this guide when you first pull the repository or whenever you spin up a f
 `uv` installs project dependencies into `.venv/`. Always run CLI commands through `uv run ...` so the lockfile is honored.
 ```
 
-# 2. Clone & Install
+# Clone & Install
 
 ```bash
 # Clone either the public repo or the dev fork
@@ -26,7 +26,7 @@ playwright install
 playwright install-deps  # Linux containers only
 ```
 
-# 3. Provide Credentials
+# Provide Credentials
 
 1. Copy the example environment file and edit it with your keys.
    ```bash
@@ -41,7 +41,7 @@ playwright install-deps  # Linux containers only
    ```
    AutoData automatically picks up these variables if `llm_config.api_key`/`base_url` are left `null`.
 
-# 4. Run Your First Task
+# Run Your First Task
 
 ```bash
 # Validate configuration without running agents
@@ -60,7 +60,7 @@ Common CLI flags:
 - `--disable-human` skips interactive HumanAgent confirmations.
 - `--overwrite` / `--force-overwrite` let you reuse the same `run_name` safely.
 
-# 5. Inspect the Outputs
+# Inspect the Outputs
 
 Every run writes to `outputs/<run_name>/` (auto-generated if you omit `--run-name`). Key folders:
 
@@ -75,14 +75,14 @@ Every run writes to `outputs/<run_name>/` (auto-generated if you omit `--run-nam
 | `browser/` | Playwright/browser-use state, screenshots, and optional video recordings. |
 | `checkpoint/` | Serialized checkpoints when `checkpoint_config.enabled` and/or `auto_checkpoint` are true. |
 
-# 6. Resume or Clean Runs
+# Resume or Clean Runs
 
 - List checkpoints: `uv run python -m autodata.checkpoint --run-name aapl-daily-2024 list --json`
 - Save ad-hoc checkpoint: `uv run python -m autodata.checkpoint save --name after-blueprint --stage=research`
 - Resume a run: add `checkpoint_config.resume_from: "checkpoint/<file>.bin"` to your config or pass `--checkpoint.resume_from=<file>` on the CLI.
 - Clean up old checkpoints: `uv run python -m autodata.checkpoint clean --max-keep=5 --older-than-days=7`
 
-# 7. Helpful Developer Commands
+# Helpful Developer Commands
 
 | Goal | Command |
 | --- | --- |
